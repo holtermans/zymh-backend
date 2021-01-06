@@ -45,7 +45,7 @@ public class myWebConfigurer  implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {
-        resourceHandlerRegistry.addResourceHandler("/temp-rainy/**").addResourceLocations("file:D:/temp-rainy/");
+        resourceHandlerRegistry.addResourceHandler("/upload-image/**").addResourceLocations("file:D:/upload-image/");
 
     }
 

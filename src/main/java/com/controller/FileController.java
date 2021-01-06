@@ -1,5 +1,8 @@
 package com.controller;
 
+import com.entity.ApiInfo;
+import com.service.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,8 @@ import java.util.UUID;
 @RestController
 public class FileController {
 
+    @Autowired
+    FileService fileService;
     @GetMapping(value = "/file")
     public String file() {
         return "file";
@@ -23,25 +28,7 @@ public class FileController {
 
 
     @PostMapping(value = "/fileUpload")
-    public String fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
-        if (file.isEmpty()) {
-            System.out.println("文件为空");
-        }
-        String fileName = file.getOriginalFilename();  // 文件名
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = "D://temp-rainy//"; // 上传后的路径
-        fileName = UUID.randomUUID() + suffixName; // 新文件名
-        File dest = new File(filePath + fileName);
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        try {
-            file.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String filename = "/temp-rainy/" + fileName;
-        model.addAttribute("filename", filename);
-        return filename;
+    public ApiInfo<?> fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
+       return fileService.uploadImage(file);
     }
 }

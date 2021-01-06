@@ -1,0 +1,17 @@
+#服务启动端口号。钉钉云ECS目前只开放80和22端口
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: "root"
+    password: "0000"
+    url: jdbc:mysql://localhost:3306/jianbuzou?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.example.entity
+
+
+

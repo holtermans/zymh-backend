@@ -44,7 +44,7 @@ public class myWebConfigurer  implements WebMvcConfigurer {
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {
+    public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {//配置本地资源路径映射
         resourceHandlerRegistry.addResourceHandler("/upload-image/**").addResourceLocations("file:D:/upload-image/");
 
     }

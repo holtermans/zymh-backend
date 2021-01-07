@@ -1,17 +1,38 @@
 package com.entity;
 
-public class Ticket {
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Repository
+@Table(name = "Ticket")//mybatis通用接口mapper依赖JPA实体类采用JPA
+public class Ticket  implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    @Column(name = "uuid")
     private String uuid;
+    @Column(name = "ticketType")
     private String ticketType = "";
+    @Column(name = "ticketName")
     private String ticketName = "";
+    @Column(name = "ticketContent")
     private String ticketContent = "";
+    @Column(name = "ticketTime")
     private String ticketTime = "";
+    @Column(name = "approver")
     private String approver = "";
+    @Column(name = "imgUrl")
     private String imgUrl = "";
-    private int ticketStatus = 0;
+    @Column(name = "ticketStatus")
+    private Integer ticketStatus = 0;
+    @Column(name = "userName")
     private String userName = "";
+    @Column(name = "userId")
     private String userId = "";
+    @Column(name = "createTime")
     private String createTime="";
 
     @Override
@@ -25,7 +46,7 @@ public class Ticket {
                 ", ticketTime='" + ticketTime + '\'' +
                 ", approver='" + approver + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
-                ", orderStatus=" + ticketStatus +
+                ", ticketStatus=" + ticketStatus +
                 ", userName='" + userName + '\'' +
                 ", userId='" + userId + '\'' +
                 ", createTime='" + createTime + '\'' +
@@ -96,11 +117,11 @@ public class Ticket {
         this.imgUrl = imgUrl;
     }
 
-    public int getTicketStatus() {
+    public Integer getTicketStatus() {
         return ticketStatus;
     }
 
-    public void setTicketStatus(int ticketStatus) {
+    public void setTicketStatus(Integer ticketStatus) {
         this.ticketStatus = ticketStatus;
     }
 

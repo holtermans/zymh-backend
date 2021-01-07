@@ -1,8 +1,8 @@
 package com.service;
 
+import com.entity.WaterMark;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -21,7 +21,7 @@ public class ImageWaterMarkService {
      * uploadPath 服务器上上传文件的相对路径
      * realUploadPath 服务器上上传文件的物理路径
      */
-    public String watermarkAdd(File imgFile, String imageFileName, String uploadPath, String realUploadPath ) {
+    public String watermarkAdd(File imgFile, String imageFileName, String uploadPath, String realUploadPath, WaterMark waterMark) {
 
         String imgWithWatermarkFileName = "watermark_" + imageFileName;
         OutputStream os = null;
@@ -43,14 +43,15 @@ public class ImageWaterMarkService {
             int x = 20;
             int y = 20;
 
-            int xInterval = 30;
+            int xInterval = width;
             int yInterval = 30;
 
             double count = 1.5;
+            String waterMarkStr = waterMark.getTime()+waterMark.getUserName();
             while ( x < width*count ) {  // 循环添加多个水印 logo
                 y = -height / 2;
                 while( y < height*count ) {
-                    g.drawString("水印", x, y);  // ④
+                    g.drawString(waterMarkStr, x, y);  // ④
                     y += 50+ yInterval;
                 }
                 x += 50 + xInterval;

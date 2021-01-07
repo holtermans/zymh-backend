@@ -1,6 +1,7 @@
 package com.service;
 
 import com.entity.ApiInfo;
+import com.entity.WaterMark;
 import com.util.ApiInfoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class FileService {
 
     @Autowired
     ImageWaterMarkService imageWaterMarkService;
-    public ApiInfo<?> uploadImage(MultipartFile file){
+    public ApiInfo<?> uploadImage(MultipartFile file, WaterMark waterMark){
         if (file.isEmpty()) {
             System.out.println("文件为空");
             return apiInfoHelper.fail("文件为空");
@@ -37,8 +38,9 @@ public class FileService {
             e.printStackTrace();
         }
         String filename = "/upload-image/" + fileName;
-        imageWaterMarkService.watermarkAdd(dest,file.getOriginalFilename(),"upload-image/","D://upload-image//");
-        return apiInfoHelper.success("上传成功",filename);
+        imageWaterMarkService.watermarkAdd(dest,fileName,"upload-image/","D://upload-image//",waterMark);
+        String WMFilename = "/upload-image/" +"watermark_" +  fileName;
+        return apiInfoHelper.success("上传成功",WMFilename);
     }
 
 }
